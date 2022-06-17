@@ -1,5 +1,4 @@
-
-    <h1>How to setup!</h1>
+<h1>How to setup!</h1>
     <p>The following part is only fo the case it is the first instance of the ELN file receiver on this machine:</p>
     <p>Hint: [ABC] are variables and have to set by you.</p>
     <h2 id="section1">First Setup</h2>
@@ -55,8 +54,6 @@
             # enforce https<br>
             return        301 https://$server_name$request_uri;<br>
             }<br><br>
-
-
             server {<br>
             listen                   443;<br>
             server_name              [IP_ADDRESS];<br>
@@ -107,21 +104,16 @@
             #NEW INSTANCES <br>
             <br>
             location /[NEW_ORGANIZATION_NAME]/projects {<br><br>
-
             proxy_pass              http://127.0.0.1:[UNUSED_PORT];<br>
             proxy_set_header        Host $host;<br>
             proxy_set_header        X-Real-IP $remote_addr;<br>
             proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;<br>
             proxy_set_header        X-Forwarded-Proto https;<br><br>
-
             }<br>
-
             ...<hr>
             FILE: /etc/nginx/sites-enabled/default
             <hr>
-
         </li>
-
         <li>Restart nginx: <br> sudo systemctr restart nginx</li>
         <li>Finally create systemd service: <br>sudo nano /etc/systemd/system/[SERVICE_NAME].service<hr>
             [Unit]<br>
@@ -135,7 +127,6 @@
             WantedBy = multi-user.target<hr>
             FILE: /etc/systemd/system/[SERVICE_NAME].service
             <hr>
-
         </li>
         <li>Run and start server: <br>sudo systemctl enable [SERVICE_NAME].service & sudo systemctl start [SERVICE_NAME].service</li>
     </ol>
