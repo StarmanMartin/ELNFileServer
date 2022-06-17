@@ -81,7 +81,7 @@
         <li>Add a new Linux user: <br> https://docs.oracle.com/en/cloud/cloud-at-customer/occ-get-started/add-ssh-enabled-user.html</li>
         <li>change user: <br> sudo su [USERNAME] & cd ~ </li>
         <li>Make a server directory and a data directory <br> mkdir server & mkdir data & cd server</li>
-        <li>Copy: <ul>
+        <li>Copy from <a href="https://github.com/StarmanMartin/ELNFileServer/releases/download/Prerelease/ELNFileServer_v0.1.tar.gz">Prerelease/ELNFileServer</a><ul>
             <li> bin/eln_file_server</li>
             <li>views</li>
         </ul>
