@@ -10,7 +10,7 @@ import (
 var config_file = `root_dir: "/home/%s/data"
 webdav_prefix_url: "/%s/projects"
 port: %d
-logfile: "server.log"
+logfile: "/home/%s/server.log"
 host: "https://%s"
 admin_password: %s`
 
@@ -29,6 +29,6 @@ func get_config(project, user string) string {
 	fmt.Print("Please enter the new Admin passsword:")
 	_, err = fmt.Scan(&pass)
 	handle_error(err)
-	return fmt.Sprintf(config_file, user, project, port, get_ip(), pass)
+	return fmt.Sprintf(config_file, user, project, port, user, get_ip(), pass)
 
 }
