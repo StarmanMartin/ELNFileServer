@@ -3,3 +3,5 @@
 /data/
 /.idea/
 /ELNFileServer.iml
+/bin/Release/v0.1/ELNFileServer_v0.1.tar.gz
+server.log

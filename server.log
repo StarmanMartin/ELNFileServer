@@ -1,70 +1,0 @@
-ERROR: 2022/06/15 07:49:34 main.go:17: UNIQUE constraint failed: userinfo.project
-INFO: 2022/06/15 07:49:34 main.go:71: Server started at http://127.0.0.1:8081/admin
-INFO: 2022/06/15 07:49:42 main.go:84: New request at:  /admin
-INFO: 2022/06/15 07:50:00 main.go:84: New request at:  /admin
-INFO: 2022/06/15 07:50:00 main.go:84: New request at:  /favicon.ico
-INFO: 2022/06/15 07:50:22 main.go:84: New request at:  /admin
-INFO: 2022/06/15 07:50:23 main.go:84: New request at:  /favicon.ico
-ERROR: 2022/06/15 07:54:01 main.go:17: UNIQUE constraint failed: userinfo.project
-INFO: 2022/06/15 07:54:01 main.go:71: Server started at http://127.0.0.1:8081/admin
-INFO: 2022/06/15 07:54:08 main.go:84: New request at:  /admin
-INFO: 2022/06/15 07:54:09 main.go:84: New request at:  /favicon.ico
-ERROR: 2022/06/15 08:01:02 main.go:17: UNIQUE constraint failed: userinfo.project
-INFO: 2022/06/15 08:01:02 main.go:71: Server started at http://127.0.0.1:8081/admin
-INFO: 2022/06/15 08:01:27 main.go:84: New request at:  /admin
-INFO: 2022/06/15 08:01:28 main.go:84: New request at:  /favicon.ico
-ERROR: 2022/06/15 08:02:57 main.go:17: UNIQUE constraint failed: userinfo.project
-INFO: 2022/06/15 08:02:57 main.go:71: Server started at http://127.0.0.1:8081/admin
-INFO: 2022/06/15 08:03:00 main.go:84: New request at:  /admin
-INFO: 2022/06/15 08:03:00 main.go:84: New request at:  /favicon.ico
-ERROR: 2022/06/15 08:03:52 main.go:17: UNIQUE constraint failed: userinfo.project
-INFO: 2022/06/15 08:03:52 main.go:71: Server started at http://127.0.0.1:8081:8081/admin
-INFO: 2022/06/15 08:03:54 main.go:84: New request at:  /admin
-INFO: 2022/06/15 08:03:54 main.go:84: New request at:  /favicon.ico
-ERROR: 2022/06/15 08:04:15 main.go:17: sql: no rows in result set
-INFO: 2022/06/15 08:04:51 main.go:84: New request at:  /webdav/projects/mpt
-INFO: 2022/06/15 08:04:51 main.go:84: New request at:  /admin
-ERROR: 2022/06/15 08:04:58 main.go:17: sql: no rows in result set
-INFO: 2022/06/15 08:05:18 main.go:84: New request at:  /webdav/projects/mpt
-INFO: 2022/06/15 08:05:23 main.go:84: New request at:  /webdav/projects/mpt
-INFO: 2022/06/15 08:05:23 main.go:84: New request at:  /admin
-ERROR: 2022/06/15 08:05:37 main.go:17: sql: no rows in result set
-ERROR: 2022/06/15 08:05:48 main.go:17: UNIQUE constraint failed: userinfo.project
-INFO: 2022/06/15 08:05:48 main.go:71: Server started at http://127.0.0.1:8081:8081/admin
-INFO: 2022/06/15 08:05:59 main.go:84: New request at:  /webdav/projects/mpt
-INFO: 2022/06/15 08:06:03 main.go:84: New request at:  /webdav/projects/mpt
-INFO: 2022/06/15 08:06:08 main.go:84: New request at:  /webdav/projects/mpt
-INFO: 2022/06/15 08:06:08 main.go:84: New request at:  /admin
-INFO: 2022/06/15 08:06:22 main.go:84: New request at:  /webdav/projects/mpt
-ERROR: 2022/06/15 08:06:22 main.go:17: open data/projects/mpt: permission denied
-INFO: 2022/06/15 08:06:22 main.go:84: New request at:  /favicon.ico
-ERROR: 2022/06/15 08:07:10 main.go:17: UNIQUE constraint failed: userinfo.project
-INFO: 2022/06/15 08:07:10 main.go:71: Server started at http://127.0.0.1:8081:8081/admin
-INFO: 2022/06/15 09:31:08 main.go:72: Server started at http://127.0.0.1:8081/admin
-INFO: 2022/06/15 09:31:17 auth_manager.go:65: New User Created:  Martin2
-ERROR: 2022/06/15 10:57:04 main.go:17: UNIQUE constraint failed: userinfo.project
-INFO: 2022/06/15 10:57:04 main.go:72: Server started at http://127.0.0.1:8081/admin
-ERROR: 2022/06/15 11:08:28 main.go:17: UNIQUE constraint failed: userinfo.project
-INFO: 2022/06/15 11:08:28 main.go:72: Server started at http://127.0.0.1:8081/admin
-ERROR: 2022/06/15 11:09:52 main.go:17: UNIQUE constraint failed: userinfo.project
-INFO: 2022/06/15 11:09:52 main.go:72: Server started at http://127.0.0.1:8081/admin
-ERROR: 2022/06/15 11:10:17 main.go:17: UNIQUE constraint failed: userinfo.project
-INFO: 2022/06/15 11:10:17 main.go:72: Server started at http://127.0.0.1:8081/admin
-INFO: 2022/06/15 11:10:19 auth_manager.go:68: New User Created:  Martin3
-ERROR: 2022/06/15 11:11:25 main.go:17: UNIQUE constraint failed: userinfo.project
-INFO: 2022/06/15 11:11:25 main.go:72: Server started at http://127.0.0.1:8081/admin
-ERROR: 2022/06/15 11:12:03 main.go:17: UNIQUE constraint failed: userinfo.project
-INFO: 2022/06/15 11:12:03 main.go:72: Server started at http://127.0.0.1:8081/admin
-ERROR: 2022/06/15 11:12:46 main.go:17: UNIQUE constraint failed: userinfo.username
-INFO: 2022/06/15 11:13:46 auth_manager.go:68: New User Created:  Martin3
-ERROR: 2022/06/17 09:02:20 main.go:18: UNIQUE constraint failed: userinfo.project
-INFO: 2022/06/17 09:02:20 main.go:75: Server started at http://127.0.0.1:8081/webdav/projects
-ERROR: 2022/06/17 09:03:02 main.go:18: UNIQUE constraint failed: userinfo.project
-INFO: 2022/06/17 09:03:02 main.go:75: Server started at http://127.0.0.1:8081/webdav/projects
-ERROR: 2022/06/17 09:04:22 main.go:18: UNIQUE constraint failed: userinfo.project
-INFO: 2022/06/17 09:04:22 main.go:80: Server started at http://127.0.0.1:8081/webdav/projects
-ERROR: 2022/06/17 09:04:56 main.go:18: UNIQUE constraint failed: userinfo.project
-INFO: 2022/06/17 09:04:56 main.go:80: Server started at http://127.0.0.1:8081/webdav/projects
-ERROR: 2022/06/17 09:12:25 main.go:18: UNIQUE constraint failed: userinfo.username
-ERROR: 2022/06/17 13:36:17 main.go:18: UNIQUE constraint failed: userinfo.project
-INFO: 2022/06/17 13:36:17 main.go:78: Server started at http://127.0.0.1:8081/webdav/projects/
