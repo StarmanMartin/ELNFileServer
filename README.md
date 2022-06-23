@@ -1,6 +1,6 @@
 <h1>How to setup Ubuntu server:</h1>
 
-Download and run the [Installer](https://github.com/StarmanMartin/ELNFileServer/blob/main/installer/bin/installer) as root (hint: sudo su)
+Download and run the [Installer](https://github.com/StarmanMartin/ELNFileServer/raw/main/installer/bin/installer) as root (hint: sudo su)
 
 
 <h1>How to setup by hand!</h1>
