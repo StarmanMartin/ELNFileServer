@@ -12,7 +12,7 @@ func run_int_setup() {
 	handle_error(os.Chdir("/var/eln_file_server"))
 	InfoLogger.Println("Change dir /var/eln_file_server")
 	cmd("apt-get update -y")
-	cmd("apt-get install openssh-server nginx -y")
+	cmd("apt-get install openssh-server nginx wget -y")
 	cmd("systemctl enable ssh")
 	cmd("systemctl start ssh")
 

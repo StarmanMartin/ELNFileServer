@@ -1,6 +1,0 @@
-root_dir: "data"
-webdav_prefix_url: "/[PROJECT_NAME]/projects/"
-port: [PORT]
-logfile: "server.log"
-host: "http://127.0.0.1:[PORT]"
-admin_password: ""

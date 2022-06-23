@@ -72,6 +72,7 @@ func run_insatnce_setup() {
 	handle_error(ioutil.WriteFile(fmt.Sprintf("/home/%s/server/config.yml", user), []byte(get_config(project, user)), 0764))
 
 	cmd(fmt.Sprintf("chown %s:%s -R /home/%s", user, user, user))
+	cmd(fmt.Sprintf("chmod +x -R /home/%s/server", user))
 	cmd("/sbin/service sshd restart")
 
 	rewrite_file("/etc/nginx/sites-available/default", func(line *string, eof bool) bool {
