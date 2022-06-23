@@ -41,10 +41,9 @@ var (
 
 // init initializes the logger and parses CMD args.
 func init() {
-
 	f, err := os.Open(path.Join("config.yml"))
 	if err != nil {
-		ErrorLogger.Fatal(err)
+		panic(err)
 	}
 	defer func(f *os.File) {
 		checkErr(f.Close())

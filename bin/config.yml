@@ -1,5 +1,5 @@
 root_dir: "data"
-webdav_prefix_url: "/webdav/projects/"
+webdav_prefix_url: "/webdav/projects"
 port: 8081
 logfile: "server.log"
 host: "http://127.0.0.1:8081"
