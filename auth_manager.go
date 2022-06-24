@@ -66,8 +66,8 @@ func AddUserProject(w http.ResponseWriter, r *http.Request, user User) {
 				if addUser(username, sha256_pass, project) {
 					checkErr(os.MkdirAll(path.Join(cfg.Root_dir, "projects", project), 0761))
 					InfoLogger.Println("New User Created: ", username)
-					res.msg = fmt.Sprintf("Added new user! ELN file guard CMD command:\n"+
-						"efw.exe -duration <integer> -src <folder> -dst %s/webdav/projects/%s -user %s -pass %s [-zip]", cfg.Host, project, username, password)
+					res.msg = fmt.Sprintf("Added new user! ELN file watcher CMD command:\n"+
+						"efw.exe -duration <integer> -src <folder> -dst %s%s/%s -user %s -pass %s [-zip]", cfg.Host, cfg.Prefix_url, project, username, password)
 				} else {
 					res.Err = fmt.Sprint("ERROR no new User: ", username)
 				}
@@ -77,7 +77,9 @@ func AddUserProject(w http.ResponseWriter, r *http.Request, user User) {
 		}
 
 	} // write data to response
-	res.Msg = strings.Split(res.msg, "\n")
+	if len(res.msg) > 0 {
+		res.Msg = strings.Split(res.msg, "\n")
+	}
 	t, _ := template.ParseFiles("views/new_user.gtpl")
 	err := t.Execute(w, res)
 	if err != nil {

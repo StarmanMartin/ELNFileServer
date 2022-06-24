@@ -2,9 +2,12 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"io"
 	"log"
 	"os"
+	"os/signal"
+	"syscall"
 )
 
 var (
@@ -13,6 +16,7 @@ var (
 	ip          = ""
 	port        int64
 	InitDone    = false
+	NewDone     = false
 )
 
 // init initializes the logger and parses CMD args.
@@ -26,6 +30,14 @@ func init() {
 
 	InfoLogger = log.New(mw, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile)
 	ErrorLogger = log.New(mw, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile)
+
+	c := make(chan os.Signal)
+	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
+	go func() {
+		<-c
+		fmt.Println("Shit")
+		os.Exit(3)
+	}()
 
 }
 
@@ -53,6 +65,11 @@ func main() {
 		ErrorLogger.Fatal("/var/eln_file_server is not a directory")
 	}
 
-	InfoLogger.Println("------Start new Instance!!!!------")
-	run_insatnce_setup()
+	if contains(os.Args, "-u") {
+		InfoLogger.Println("------Running updates!!!!------")
+		run_update()
+	} else {
+		InfoLogger.Println("------Start new Instance!!!!------")
+		run_insatnce_setup()
+	}
 }

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FILE RECEIVER</title>
+    <style>
+        .cmd {
+            padding: 16px;
+            margin: 5px;
+            border: black 1px solid;
+            background-color: lightgray;
+            color: black;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>How to setup!</h1>
+    <ol>
+        <li>Download Installer<p class="cmd">mkdir ~/eln_installer<br>
+        cd ~/eln_installer<br>
+        wget https://github.com/StarmanMartin/ELNFileServer/releases/tag/latest/installer</p>
+        </li>
+        <li>Run Installer<p class="cmd">
+            sudo chmod +x installer<br>
+            sudo su -c ./installer</p>
+        </li>
+        <li>Follow instructions</li>
+
+    </ol>
+    <h1>How add instance!</h1>
+    <ol>
+    <li>Run Installer<p class="cmd">
+        sudo su -c ./installer</p>
+    </li>
+    <li>Follow instructions</li>
+    </ol>
+    <h1>How update all instance!</h1>
+    <ol>
+        <li>Run Installer with tag<p class="cmd">
+            sudo su -c "./installer -u"</p>
+        </li>
+        <li>Follow instructions</li>
+    </ol>
+</body>
+</html>

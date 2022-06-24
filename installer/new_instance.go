@@ -31,8 +31,16 @@ func run_insatnce_setup() {
 	handle_error(check_project(&project))
 	user := strings.ToLower(project)
 	project = user
+	InfoLogger.Printf("| Instance Name: %s\n", user)
 
 	cmd(fmt.Sprintf("useradd %s -m", user))
+	defer func() {
+		if !NewDone {
+			InfoLogger.Printf("delete user: %s\n", user)
+			cmd(fmt.Sprintf("userdel %s", user))
+			cmd(fmt.Sprintf("rm -R /home/%s", user))
+		}
+	}()
 	handle_error(os.Mkdir(fmt.Sprintf("/home/%s/.ssh", user), 600))
 
 	fmt.Print("Enter your the SSH public key (Hint nano id_dsa.pub): ")
@@ -63,17 +71,16 @@ func run_insatnce_setup() {
 		return true
 	})
 
-	_, err = copy_file("/var/eln_file_server/eln_file_server", fmt.Sprintf("/home/%s/server/eln_file_server", user))
-	handle_error(err)
-
-	_, err = copy_file("/var/eln_file_server/views/new_user.gtpl", fmt.Sprintf("/home/%s/server/views/new_user.gtpl", user))
-	handle_error(err)
+	copy_to_user(user)
 
 	handle_error(ioutil.WriteFile(fmt.Sprintf("/home/%s/server/config.yml", user), []byte(get_config(project, user)), 0764))
 
 	cmd(fmt.Sprintf("chown %s:%s -R /home/%s", user, user, user))
 	cmd(fmt.Sprintf("chmod +x -R /home/%s/server", user))
 	cmd("/sbin/service sshd restart")
+
+	InfoLogger.Printf("| SSH user: %s \n", user)
+	cmd("cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.ist.bck")
 
 	rewrite_file("/etc/nginx/sites-available/default", func(line *string, eof bool) bool {
 		if strings.Index(*line, "#NEW INSTANCES") >= 0 {
@@ -84,12 +91,40 @@ func run_insatnce_setup() {
 		return true
 	})
 
+	defer func() {
+		if NewDone {
+			cmd("rm /etc/nginx/sites-available/default.ist.bck")
+		} else {
+			InfoLogger.Printf("remove location from nginx\n")
+			cmd("rm /etc/nginx/sites-available/default")
+			cmd("cp /etc/nginx/sites-available/default.ist.bck /etc/nginx/sites-available/default")
+			cmd("systemctl restart nginx")
+		}
+
+	}()
+
 	cmd("systemctl restart nginx")
 
 	handle_error(ioutil.WriteFile(fmt.Sprintf("/etc/systemd/system/eln_instance_%s.service", user), []byte(get_service(user)), 766))
-	InfoLogger.Printf("systemctl enable eln_instance_%s.service\n", user)
+	defer func() {
+		if !NewDone {
+
+			InfoLogger.Printf("remove eln_instance_%s.service\n", user)
+			cmd(fmt.Sprintf("rm /etc/systemd/system/eln_instance_%s.service", user))
+		}
+	}()
+	InfoLogger.Printf("| systemctl restart eln_instance_%s.service\n", user)
 	cmd(fmt.Sprintf("systemctl enable eln_instance_%s.service", user))
+	defer func() {
+		if !NewDone {
+			InfoLogger.Printf("systemctl disable & stop eln_instance_%s.service\n", user)
+			cmd(fmt.Sprintf("systemctl stop eln_instance_%s.service", user))
+			cmd(fmt.Sprintf("systemctl disable eln_instance_%s.service", user))
+		}
+	}()
 	cmd(fmt.Sprintf("systemctl start eln_instance_%s.service", user))
 
+	InfoLogger.Printf("| Server address: https://%s/%s/projects \n", get_ip(), project)
 	InfoLogger.Println("------NEW INSTANCE DONE!!!!------")
+	NewDone = true
 }

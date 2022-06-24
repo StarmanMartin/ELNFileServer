@@ -1,7 +1,14 @@
 <h1>How to setup Ubuntu server:</h1>
 
-Download and run the [Installer](https://github.com/StarmanMartin/ELNFileServer/raw/main/installer/bin/installer) as root (hint: sudo su)
+Download and run the [Installer](https://github.com/StarmanMartin/ELNFileServer/raw/main/installer/bin/installer) as root (hint: sudo su)<br>
 
+```
+mkdir ~/eln_installer
+cd ~/eln_installer
+wget https://github.com/StarmanMartin/ELNFileServer/raw/main/installer/bin/installer
+sudo chmod +x installer
+sudo su -c ./installer
+```
 
 <h1>How to setup by hand!</h1>
 <p>The following part is only fo the case it is the first instance of the ELN file receiver on this machine:</p>

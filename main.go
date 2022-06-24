@@ -55,6 +55,10 @@ func init() {
 		panic(err)
 	}
 
+	re := regexp.MustCompile("^/|/$")
+	cfg.Prefix_url = "/" + re.ReplaceAllString(cfg.Prefix_url, "")
+	cfg.Host = re.ReplaceAllString(cfg.Host, "")
+
 	logFile, err := os.OpenFile(cfg.Logfile, os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
 	if err != nil {
 		panic(err)

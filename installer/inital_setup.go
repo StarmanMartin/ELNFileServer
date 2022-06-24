@@ -9,6 +9,7 @@ import (
 func run_int_setup() {
 	InfoLogger.Println("mkdir /var/eln_file_server")
 	cmd("mkdir /var/eln_file_server")
+
 	handle_error(os.Chdir("/var/eln_file_server"))
 	InfoLogger.Println("Change dir /var/eln_file_server")
 	cmd("apt-get update -y")
@@ -20,6 +21,8 @@ func run_int_setup() {
 	cmd("ufw allow 'OpenSSH'")
 	cmd("echo 'y' | ufw enable")
 	cmd("ufw reload")
+
+	download()
 
 	rewrite_file("/etc/ssh/sshd_config", func(line *string, eof bool) bool {
 		if eof || strings.Index(*line, "AllowUsers") >= 0 {
@@ -51,8 +54,6 @@ func run_int_setup() {
 
 	handle_error(ioutil.WriteFile("/etc/nginx/sites-available/default", []byte(get_nginx_default()), 0644))
 
-	cmd("wget https://github.com/StarmanMartin/ELNFileServer/releases/download/Prerelease/ELNFileServer_v0.1.tar.gz -O /var/eln_file_server/ELNFileServer_v0.1.tar.gz")
-	cmd("tar -xf /var/eln_file_server/ELNFileServer_v0.1.tar.gz -C /var/eln_file_server")
 	handle_error(os.Rename("/usr/share/nginx/html/index.html", "/usr/share/nginx/html/index.html.bck"))
 	InfoLogger.Println("Update /usr/share/nginx/html/index.html")
 	defer func() {
@@ -63,10 +64,10 @@ func run_int_setup() {
 		}
 	}()
 
-	handle_error(os.Rename("./index.html", "/usr/share/nginx/html/index.html"))
+	handle_error(os.Rename("/var/eln_file_server/src/index.html", "/usr/share/nginx/html/index.html"))
 	cmd("chmod 644 /usr/share/nginx/html/index.html")
 
-	handle_error(ioutil.WriteFile("/var/eln_file_server/portlist.txt", []byte("8081"), 0764))
+	handle_error(ioutil.WriteFile("/var/eln_file_server/port_list.txt", []byte("8081"), 0764))
 	handle_error(ioutil.WriteFile("/var/eln_file_server/project_list.txt", []byte(""), 0764))
 
 	cmd("systemctl restart nginx.service")

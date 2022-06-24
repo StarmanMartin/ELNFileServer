@@ -82,6 +82,15 @@ func remove_duplicate_str(strSlice []string) []string {
 	return list
 }
 
+func contains(s []string, e string) bool {
+	for _, a := range s {
+		if a == e {
+			return true
+		}
+	}
+	return false
+}
+
 func copy_file(src, dst string) (int64, error) {
 	sourceFileStat, err := os.Stat(src)
 	if err != nil {
@@ -119,4 +128,24 @@ func get_ip() string {
 	}
 
 	return ip
+}
+
+func download() {
+	InfoLogger.Println("Download new version")
+	_, err := os.Stat("/var/eln_file_server/src")
+	if err == nil {
+		cmd("rm -R /var/eln_file_server/src")
+	}
+	cmd("mkdir /var/eln_file_server/src")
+	cmd("wget https://github.com/StarmanMartin/ELNFileServer/releases/download/latest/ELNFileServer.tar.gz -O /var/eln_file_server/src/ELNFileServer.tar.gz")
+	cmd("tar -xf /var/eln_file_server/src/ELNFileServer.tar.gz -C /var/eln_file_server/src")
+}
+
+func copy_to_user(user string) {
+
+	_, err := copy_file("/var/eln_file_server/src/eln_file_server", fmt.Sprintf("/home/%s/server/eln_file_server", user))
+	handle_error(err)
+
+	_, err = copy_file("/var/eln_file_server/src/views/new_user.gtpl", fmt.Sprintf("/home/%s/server/views/new_user.gtpl", user))
+	handle_error(err)
 }
