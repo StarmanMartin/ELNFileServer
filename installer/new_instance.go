@@ -34,13 +34,13 @@ func run_insatnce_setup() {
 	InfoLogger.Printf("| Instance Name: %s\n", user)
 
 	cmd(fmt.Sprintf("useradd %s -m", user))
-	defer func() {
+	on_cleanup(func() {
 		if !NewDone {
 			InfoLogger.Printf("delete user: %s\n", user)
 			cmd(fmt.Sprintf("userdel %s", user))
 			cmd(fmt.Sprintf("rm -R /home/%s", user))
 		}
-	}()
+	})
 	handle_error(os.Mkdir(fmt.Sprintf("/home/%s/.ssh", user), 600))
 
 	fmt.Print("Enter your the SSH public key (Hint nano id_dsa.pub): ")
@@ -91,7 +91,7 @@ func run_insatnce_setup() {
 		return true
 	})
 
-	defer func() {
+	on_cleanup(func() {
 		if NewDone {
 			cmd("rm /etc/nginx/sites-available/default.ist.bck")
 		} else {
@@ -101,27 +101,27 @@ func run_insatnce_setup() {
 			cmd("systemctl restart nginx")
 		}
 
-	}()
+	})
 
 	cmd("systemctl restart nginx")
 
 	handle_error(ioutil.WriteFile(fmt.Sprintf("/etc/systemd/system/eln_instance_%s.service", user), []byte(get_service(user)), 766))
-	defer func() {
+	on_cleanup(func() {
 		if !NewDone {
 
 			InfoLogger.Printf("remove eln_instance_%s.service\n", user)
 			cmd(fmt.Sprintf("rm /etc/systemd/system/eln_instance_%s.service", user))
 		}
-	}()
+	})
 	InfoLogger.Printf("| systemctl restart eln_instance_%s.service\n", user)
 	cmd(fmt.Sprintf("systemctl enable eln_instance_%s.service", user))
-	defer func() {
+	on_cleanup(func() {
 		if !NewDone {
 			InfoLogger.Printf("systemctl disable & stop eln_instance_%s.service\n", user)
 			cmd(fmt.Sprintf("systemctl stop eln_instance_%s.service", user))
 			cmd(fmt.Sprintf("systemctl disable eln_instance_%s.service", user))
 		}
-	}()
+	})
 	cmd(fmt.Sprintf("systemctl start eln_instance_%s.service", user))
 
 	InfoLogger.Printf("| Server address: https://%s/%s/projects \n", get_ip(), project)

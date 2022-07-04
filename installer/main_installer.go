@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"fmt"
 	"io"
 	"log"
 	"os"
@@ -35,7 +34,7 @@ func init() {
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
 	go func() {
 		<-c
-		fmt.Println("Shit")
+		cleanup()
 		os.Exit(3)
 	}()
 
@@ -44,18 +43,19 @@ func init() {
 func main() {
 	server_folder_info, err := os.Stat("/var/eln_file_server")
 	defer os.Exit(0)
+	defer cleanup()
 
 	if !is_root() {
 		handle_error(errors.New("Please run as root (Hint: sudo su)!!"))
 	}
 
 	if err != nil {
-		defer func() {
+		on_cleanup(func() {
 			if !InitDone {
 				InfoLogger.Println("Remove /var/eln_file_server")
 				cmd("rm -R /var/eln_file_server")
 			}
-		}()
+		})
 		run_int_setup()
 		server_folder_info, err = os.Stat("/var/eln_file_server")
 		handle_error(err)

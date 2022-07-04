@@ -44,25 +44,26 @@ func run_int_setup() {
 	cmd("openssl req -x509 -nodes -days 730 -newkey rsa:2048 -keyout server.key -out server.crt -config san.cnf")
 	handle_error(os.Rename("/etc/nginx/sites-available/default", "/etc/nginx/sites-available/default.bck"))
 	InfoLogger.Println("Update /etc/nginx/sites-available/default")
-	defer func() {
+
+	on_cleanup(func() {
 		if !InitDone {
 			InfoLogger.Println("Revert /etc/nginx/sites-available/default")
 			_ = os.Remove("/etc/nginx/sites-available/default")
 			_ = os.Rename("/etc/nginx/sites-available/default.bck", "/etc/nginx/sites-available/default")
 		}
-	}()
+	})
 
 	handle_error(ioutil.WriteFile("/etc/nginx/sites-available/default", []byte(get_nginx_default()), 0644))
 
 	handle_error(os.Rename("/usr/share/nginx/html/index.html", "/usr/share/nginx/html/index.html.bck"))
 	InfoLogger.Println("Update /usr/share/nginx/html/index.html")
-	defer func() {
+	on_cleanup(func() {
 		if !InitDone {
 			InfoLogger.Println("Revert /usr/share/nginx/html/index.html")
 			_ = os.Remove("/usr/share/nginx/html/index.html")
 			_ = os.Rename("/usr/share/nginx/html/index.html.bck", "/usr/share/nginx/html/index.html")
 		}
-	}()
+	})
 
 	handle_error(os.Rename("/var/eln_file_server/src/index.html", "/usr/share/nginx/html/index.html"))
 	cmd("chmod 644 /usr/share/nginx/html/index.html")

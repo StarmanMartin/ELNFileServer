@@ -7,14 +7,14 @@ import (
 	"os"
 	"os/exec"
 	"os/user"
-	"runtime"
 	"strings"
 )
 
 func handle_error(err error) {
 	if err != nil {
 		ErrorLogger.Println(err)
-		runtime.Goexit()
+		cleanup()
+		os.Exit(1)
 	}
 }
 
@@ -148,4 +148,16 @@ func copy_to_user(user string) {
 
 	_, err = copy_file("/var/eln_file_server/src/views/new_user.gtpl", fmt.Sprintf("/home/%s/server/views/new_user.gtpl", user))
 	handle_error(err)
+}
+
+var func_list []func()
+
+func on_cleanup(a func()) {
+	func_list = append(func_list, a)
+}
+
+func cleanup() {
+	for i := len(func_list) - 1; i >= 0; i = i - 1 {
+		func_list[i]()
+	}
 }

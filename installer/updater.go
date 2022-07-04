@@ -14,8 +14,10 @@ func run_update() {
 	for _, user := range file_text {
 		if user != "" {
 			cmd(fmt.Sprintf("systemctl stop eln_instance_%s.service", user))
+			InfoLogger.Printf("systemctl stop eln_instance_%s.service\n", user)
 			copy_to_user(user)
 			cmd(fmt.Sprintf("systemctl start eln_instance_%s.service", user))
+			InfoLogger.Printf("systemctl start eln_instance_%s.service\n", user)
 		}
 	}
 }
