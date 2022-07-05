@@ -42,6 +42,16 @@ func run_int_setup() {
 	handle_error(ioutil.WriteFile("/var/eln_file_server/san.cnf", []byte(get_san_cnf()), 0644))
 
 	cmd("openssl req -x509 -nodes -days 730 -newkey rsa:2048 -keyout server.key -out server.crt -config san.cnf")
+
+	cmd("ln -s /var/eln_file_server/server.crt /usr/share/nginx/html/server.crt")
+
+	on_cleanup(func() {
+		if !InitDone {
+			InfoLogger.Println("Remove /usr/share/nginx/html/server.crt")
+			_ = os.Remove("/usr/share/nginx/html/server.crt")
+		}
+	})
+
 	handle_error(os.Rename("/etc/nginx/sites-available/default", "/etc/nginx/sites-available/default.bck"))
 	InfoLogger.Println("Update /etc/nginx/sites-available/default")
 

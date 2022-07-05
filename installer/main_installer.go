@@ -59,6 +59,7 @@ func main() {
 		run_int_setup()
 		server_folder_info, err = os.Stat("/var/eln_file_server")
 		handle_error(err)
+		InfoLogger.Printf("\n--------------------------------\n--------------------------------\nGo to:\nhttps://%s\n--------------------------------\n--------------------------------\n\n", get_ip())
 	}
 
 	if !server_folder_info.IsDir() {
