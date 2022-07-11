@@ -7,3 +7,4 @@
 server.log
 /installer/bin/ELN_installer.log
 /bin/
+/auth_user.db
