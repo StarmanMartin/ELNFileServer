@@ -67,8 +67,8 @@ func AddUserProject(w http.ResponseWriter, r *http.Request, user User) {
 					checkErr(os.MkdirAll(path.Join(cfg.Root_dir, "projects", project), 0761))
 					InfoLogger.Println("New User Created: ", username)
 					res.msg = fmt.Sprintf("Added new user! ELN file watcher CMD command:\n"+
-						"efw.exe -duration <integer> -src <folder> -dst %s%s/%s -user %s -pass %s -crt server.crt [-zip]", cfg.Host, cfg.Prefix_url, project, username, password)
-					res.Command = fmt.Sprintf("efw.exe -duration <integer> -src <folder> -dst %s%s/%s -user %s -pass %s  -crt server.crt [-zip]", cfg.Host, cfg.Prefix_url, project, username, password)
+						"efw_[architecture].exe -duration <integer> -src <folder> -dst %s%s/%s -user %s -pass %s -crt server.crt [-zip]", cfg.Host, cfg.Prefix_url, project, username, password)
+					res.Command = fmt.Sprintf("-duration <integer> -src <folder> [-zip] -dst %s%s/%s -user %s -pass %s  -crt server.crt", cfg.Host, cfg.Prefix_url, project, username, password)
 				} else {
 					res.Err = fmt.Sprint("ERROR no new User: ", username)
 				}
