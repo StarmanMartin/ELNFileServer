@@ -6,6 +6,7 @@ var service = `[Unit]
 Description = file server instance %s
 
 [Service]
+User = %s
 WorkingDirectory = /home/%s/server
 ExecStart = /home/%s/server/eln_file_server
 
@@ -13,5 +14,5 @@ ExecStart = /home/%s/server/eln_file_server
 WantedBy = multi-user.target`
 
 func get_service(user string) string {
-	return fmt.Sprintf(service, user, user, user)
+	return fmt.Sprintf(service, user, user, user, user)
 }
